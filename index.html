@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gary Gray | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="background-visuals"></div>
+
+    <section class="hero" id="hero"></section>
+
+    <section class="cards-grid" id="cards"></section>
+
+    <footer id="footer"></footer>
+
+    <script src="js/textContent.js"></script>
+    <script>
+        // Inject Hero with Image
+        const heroSection = document.getElementById('hero');
+        heroSection.innerHTML = `
+            <img src="images/gary-bender_small.png" class="profile-img" alt="Gary Gray Robot">
+            <div class="hero-text">
+                <h1>${pageContent.hero.title}</h1>
+                ${pageContent.hero.paragraphs.map(p => `<p>${p}</p>`).join('')}
+            </div>
+        `;
+
+        // Inject Cards
+        const cardsContainer = document.getElementById('cards');
+        pageContent.cards.forEach((card, i) => {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'card';
+            cardDiv.style.animationDelay = `${0.1 + (i * 0.1)}s`;
+            cardDiv.innerHTML = `<h3>${card.title}</h3><p>${card.content}</p>`;
+            cardsContainer.appendChild(cardDiv);
+        });
+
+        // Inject footer links (Counter completely removed)
+        const footer = document.getElementById('footer');
+        const half = Math.ceil(pageContent.footerLinks.length / 2);
+
+        footer.innerHTML = `
+            <div class="footer-rows">
+                <ul class="footer-row">
+                    ${pageContent.footerLinks.slice(0, half)
+                        .map(link => `<li><a href="${link.url}" target="_blank">${link.text}</a></li>`).join('')}
+                </ul>
+
+                <ul class="footer-row">
+                    ${pageContent.footerLinks.slice(half)
+                        .map(link => `<li><a href="${link.url}" target="_blank">${link.text}</a></li>`).join('')}
+                </ul>
+            </div>
+        `;
+    </script>
+</body>
+</html>
